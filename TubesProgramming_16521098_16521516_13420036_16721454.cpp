@@ -27,6 +27,27 @@ int main () {
             }
         }
     }
+
+    // Mengeluarkan deskripsi permainan
+    cout << "== DESKRIPSI PROGRAM ==" << endl;
+    cout << "1. Pelaksanaan program akan dibatasi pada papan berukuran 8x8 pada kuadran positif." << endl;
+    cout << "2. User akan menggunakan Robot (R) untuk melawan Mecha-Kurama (M) dengan masing-masing memiliki atribut HP awal sebesar 100." << endl;
+    cout << "3. Program akan berakhir apabila user mengakhiri program atau nilai HP Robot kurang dari atau sama dengan 0." << endl;
+    cout << "4. Robot dapat berpindah tempat dalam papan 8x8, tetapi tidak bisa bergerak keluar dari papan atau menabrak Mecha-Kurama." << endl;
+    cout << "5. Robot dapat menyerang Kurama dengan damage konstan dengan radius maksimal 1 petak." << endl;
+    cout << "6. Mecha-Kurama dapat menyerang Robot dengan damage random selama Robot berada pada radius 3 petak dari posisi Mecha-Kurama."<< endl;
+    cout << "7. Robot dapat menyembuhkan diri sendiri dengan menambah nilai HP sebesar 10." << endl;
+    cout << "7. Command yang dapat digunakan untuk mengontrol robot adalah 'MOVE', 'ATTACK', 'HEAL', dan 'FINISH'." << endl;
+    cout << "8. User dapat mengakhiri program atau melanjutkan program setelah HP Mecha-Kurama kurang dari atau sama dengan 0" << endl;
+
+    string start;
+    cout << "Ketik 'YA' untuk memulai program" << endl;
+    cin >> start;
+
+    while (start != "YA" ){
+        cout << "Input selain 'YA' tidak diterima" << endl;
+        cin >> start;
+    }
     
     // Loop permainan
     bool game = true; // Bila bersifat true, game akan terus berlanjut, sebaliknya bila false
@@ -44,7 +65,6 @@ int main () {
     while (game == true){
         // Status robot yang perlu ditampilkan setiap round
         cout << "==============================================================" << endl;
-        cout << "Program akan dibatasi pada area 8x8 pada kuadran positif." << endl;
         cout << "Posisi robot sekarang ada pada koordinat ("<< xrobot << ", "<< (7-yrobot)<< ")." << endl;
 
         // Jarak Robot
@@ -80,7 +100,7 @@ int main () {
         
         cout << "==============================================================" << endl;
         cout << "Tindakan apa yang ingin dilakukan robot? (tuliskan dalam KAPITAL) " << endl;
-        cout << "Pilihan tindakan yang bisa dipilih: 'MOVE', 'ATTACK', 'FINISH'" << endl;
+        cout << "Pilihan tindakan yang bisa dipilih: 'MOVE', 'ATTACK', 'HEAL', 'FINISH'" << endl;
         cin >> action;
         cout << "==============================================================" << endl;
 
@@ -178,6 +198,13 @@ int main () {
                 cout << "Gerakan tersebut tidak valid" << endl;
             }
         }
+
+        // Bila action yang dipilih adalah "HEAL"
+        else if (action == "HEAL") {
+            cout << "Robot melakukan reparasi terhadap dirinya. Atribut HP Robot bertambah 10."<< endl;
+            hprobot +=10;
+        }
+
         // Bila action yang dipilih adalah "FINISH"
         else if ( action == "FINISH" ){
             string end;
@@ -193,8 +220,8 @@ int main () {
             cout << "Action input invalid."<< endl;
         }
 
-        // KURAMA ATTACK RADIUS 3
-        if (xdistance + ydistance <= 3 and game == true){
+        // Program Attack dari Kurama dalam Radius 3 Petak
+        if (xdistance + ydistance <= 3 && game == true){ // Program ini tidak dijalankan apabila pemain sudah mengakhiri permainan.
             cout << "Robot dalam jangkauan Mecha-Kurama!" << endl;
             cout << "Mecha-Kurama akan menyerang robot!" << endl;
             attackkurama = rand() % 20;
@@ -206,8 +233,8 @@ int main () {
             }
         }
         // Program apabila HP robot telah habis
-        if (hprobot < 0){
-            if (hpkurama < 0){ //jika HP robot habis bertepatan dengan hancurnya mecha kurama, maka killcount ditambah 1
+        if (hprobot <= 0){
+            if (hpkurama <= 0){ //jika HP robot habis bertepatan dengan hancurnya mecha kurama, maka killcount ditambah 1
                 amount +=1;
             }
             cout << "HP Robot telah habis. Robot telah dihancurkan oleh Mecha-Kurama" << endl;
@@ -215,7 +242,7 @@ int main () {
         }
 
         // Program apabila HP kurama telah habis tetapi robot pemain masih hidup
-        if (hpkurama < 0 && hprobot > 0){
+        if (hpkurama <= 0 && hprobot > 0){
             amount +=1; 
             string end;
             cout << "Bunshin Mecha-Kurama telah dihancurkan. Apakah ingin mengakhiri permainan? ('YA' atau 'TIDAK')" << endl;
@@ -240,4 +267,7 @@ int main () {
 
     cout << "Program telah selesai dilaksanakan" << endl;
     cout << "Jumlah Mecha-Kurama yang telah dikalahkan adalah " << amount << " bunshin." << endl;
+
+    int finish;
+    cin >> finish;
 }
