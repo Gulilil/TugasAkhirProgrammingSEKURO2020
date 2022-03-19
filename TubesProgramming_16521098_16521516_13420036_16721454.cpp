@@ -46,7 +46,26 @@ int main () {
         cout << "==============================================================" << endl;
         cout << "Program akan dibatasi pada area 8x8 pada kuadran positif." << endl;
         cout << "Posisi robot sekarang ada pada koordinat ("<< xrobot << ", "<< (7-yrobot)<< ")." << endl;
+
+        // Jarak Robot
+        if (ymecha > yrobot){
+            ydistance = ymecha - yrobot;
+            cout << "Mecha berada pada " << ydistance << " petak di belakang robot." << endl;
+        }else{
+            ydistance = yrobot - ymecha;
+            cout << "Mecha berada pada " << ydistance << " petak di depan robot." << endl;
+        }
+        if (xmecha > xrobot){
+            xdistance = xmecha - xrobot;
+            cout << "Mecha berada pada " << xdistance << " petak di kanan robot." << endl;
+        } else {
+            xdistance = xrobot - xmecha;
+            cout << "Mecha berada pada " << xdistance << " petak di kiri robot." << endl;
+        }
+
+        cout << "==============================================================" << endl;
         cout << "HP Robot : " << hprobot << " || HP Kurama : " << hpkurama << endl;
+        cout << "==============================================================" << endl;
 
         // Melakukan print peta
         for (int i = 0; i < 8; i++){
@@ -58,10 +77,12 @@ int main () {
                 }
             }
         }
-
+        
+        cout << "==============================================================" << endl;
         cout << "Tindakan apa yang ingin dilakukan robot? (tuliskan dalam KAPITAL) " << endl;
-        cout << "Pilihan tindakan yang bisa dipilih: 'MOVE', 'ATTACK', 'DISTANCE', 'FINISH'" << endl;
+        cout << "Pilihan tindakan yang bisa dipilih: 'MOVE', 'ATTACK', 'FINISH'" << endl;
         cin >> action;
+        cout << "==============================================================" << endl;
 
         // Program bila action yang dipilih adalah "MOVE"
         if (action == "MOVE"){
@@ -107,83 +128,54 @@ int main () {
             else {
                 cout << "Gerakan tersebut tidak valid" << endl;
             }
+            cout << "==============================================================" << endl;
         } 
         // Bila action yang dipilih adalah "ATTACK"
         else if (action == "ATTACK") {
             string initiate;
             string direction;
             cout << "Serangan hanya bisa dilakukan kepada petak di sebelah depan, belakang, kiri, dan kanan robot" << endl;
-            cout << "Bila robot melakukan serangan, Mecha-Kurama juga akan melakukan serangan pada robot" << endl;
-            cout << "Yakin akan melakukan serangan pada Mecha-Kurama? ('YA' atau 'TIDAK')" << endl;
-            cin >> initiate;
-            if (initiate == "YA"){
-                cout << "Ke arah manakah serangan akan dilancarkan?" << endl;
-                cout << "Pilihan arah yang bisa dipilih: 'FORWARD', 'BACKWARD', 'LEFT', 'RIGHT' " << endl;
-                cin >> direction;
-                if (direction == "FORWARD" ){
-                    if (papan[yrobot-1][xrobot] == 'M'){
-                        cout << "Mecha-Kurama terkena serangan" << endl;
-                        hpkurama -= 40;
-                        cout << "HP Mecha-kurama sekarang adalah " << hpkurama << endl;
-                    } else {
-                        cout << "Serangan tidak mengenai Mecha-Kurama" << endl;
-                    }
+            cout << "Ke arah manakah serangan akan dilancarkan?" << endl;
+            cout << "Pilihan arah yang bisa dipilih: 'FORWARD', 'BACKWARD', 'LEFT', 'RIGHT' " << endl;
+            cin >> direction;
+            if (direction == "FORWARD" ){
+                if (papan[yrobot-1][xrobot] == 'M'){
+                    cout << "Mecha-Kurama terkena serangan" << endl;
+                    hpkurama -= 40;
+                    cout << "HP Mecha-kurama sekarang adalah " << hpkurama << endl;
+                } else {
+                    cout << "Serangan tidak mengenai Mecha-Kurama" << endl;
                 }
-                else if (direction == "BACKWARD"){
-                    if (papan[yrobot+1][xrobot] == 'M' ){
-                        cout << "Mecha-Kurama terkena serangan" << endl;
-                        hpkurama -= 40;
-                        cout << "HP Mecha-kurama sekarang adalah " << hpkurama << endl;
-                    } else {
-                        cout << "Serangan tidak mengenai Mecha-Kurama" << endl;
-                    }
-                }
-                else if (direction == "LEFT"){
-                    if (papan[yrobot][xrobot-1] == 'M' or xrobot-1 < 0){
-                        cout << "Mecha-Kurama terkena serangan" << endl;
-                        hpkurama -= 40;
-                        cout << "HP Mecha-kurama sekarang adalah " << hpkurama << endl;
-                    } else {
-                        cout << "Serangan tidak mengenai Mecha-Kurama" << endl;
-                    }
-                }
-                else if (direction == "RIGHT"){
-                    if (papan[yrobot][xrobot+1] == 'M' or xrobot+1 > 7){
-                        cout << "Mecha-Kurama terkena serangan" << endl;
-                        hpkurama -= 40;
-                        cout << "HP Mecha-kurama sekarang adalah " << hpkurama << endl;
-                    } else {
-                        cout << "Serangan tidak mengenai Mecha-Kurama" << endl;
-                    }
-                }
-                else {
-                    cout << "Gerakan tersebut tidak valid" << endl;
-                }
-
-            attackkurama = rand() % 20;
-            hprobot -= attackkurama; // mengurangi hp robot sesuai dengan serangan mecha kurama
-            if (attackkurama >=15){
-                cout << "CRITICAL HIT! Serangan kurama mengurangi HP robot sebesar "<< attackkurama << endl;
-            } else {
-                cout << "Serangan kurama mengurangi HP robot sebesar " << attackkurama << endl;
             }
+            else if (direction == "BACKWARD"){
+                if (papan[yrobot+1][xrobot] == 'M' ){
+                    cout << "Mecha-Kurama terkena serangan" << endl;
+                    hpkurama -= 40;
+                    cout << "HP Mecha-kurama sekarang adalah " << hpkurama << endl;
+                } else {
+                    cout << "Serangan tidak mengenai Mecha-Kurama" << endl;
+                }
             }
-        }
-        // Bila action yang dipilih adalah "DISTANCE"
-        else if (action == "DISTANCE"){
-            if (ymecha > yrobot){
-                ydistance = ymecha - yrobot;
-                cout << "Mecha berada pada " << ydistance << " petak di belakang robot." << endl;
-            }else{
-                ydistance = yrobot - ymecha;
-                cout << "Mecha berada pada " << ydistance << " petak di depan robot." << endl;
+            else if (direction == "LEFT"){
+                if (papan[yrobot][xrobot-1] == 'M' or xrobot-1 < 0){
+                    cout << "Mecha-Kurama terkena serangan" << endl;
+                    hpkurama -= 40;
+                    cout << "HP Mecha-kurama sekarang adalah " << hpkurama << endl;
+                } else {
+                    cout << "Serangan tidak mengenai Mecha-Kurama" << endl;
+                }
             }
-            if (xmecha > xrobot){
-                xdistance = xmecha - xrobot;
-                cout << "Mecha berada pada " << xdistance << " petak di kanan robot." << endl;
-            } else {
-                xdistance = xrobot - xmecha;
-                cout << "Mecha berada pada " << xdistance << " petak di kiri robot." << endl;
+            else if (direction == "RIGHT"){
+                if (papan[yrobot][xrobot+1] == 'M' or xrobot+1 > 7){
+                    cout << "Mecha-Kurama terkena serangan" << endl;
+                    hpkurama -= 40;
+                    cout << "HP Mecha-kurama sekarang adalah " << hpkurama << endl;
+                } else {
+                    cout << "Serangan tidak mengenai Mecha-Kurama" << endl;
+                }
+            }
+            else {
+                cout << "Gerakan tersebut tidak valid" << endl;
             }
         }
         // Bila action yang dipilih adalah "FINISH"
@@ -201,6 +193,18 @@ int main () {
             cout << "Action input invalid."<< endl;
         }
 
+        // KURAMA ATTACK RADIUS 3
+        if (xdistance + ydistance <= 3 and game == true){
+            cout << "Robot dalam jangkauan Mecha-Kurama!" << endl;
+            cout << "Mecha-Kurama akan menyerang robot!" << endl;
+            attackkurama = rand() % 20;
+            hprobot -= attackkurama; // mengurangi hp robot sesuai dengan serangan mecha kurama
+            if (attackkurama >=15){
+                cout << "CRITICAL HIT! Serangan kurama mengurangi HP robot sebesar "<< attackkurama << endl;
+            } else {
+                cout << "Serangan kurama mengurangi HP robot sebesar " << attackkurama << endl;
+            }
+        }
         // Program apabila HP robot telah habis
         if (hprobot < 0){
             if (hpkurama < 0){ //jika HP robot habis bertepatan dengan hancurnya mecha kurama, maka killcount ditambah 1
@@ -237,5 +241,3 @@ int main () {
     cout << "Program telah selesai dilaksanakan" << endl;
     cout << "Jumlah Mecha-Kurama yang telah dikalahkan adalah " << amount << " bunshin." << endl;
 }
-
-
