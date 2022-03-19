@@ -37,8 +37,10 @@ int main () {
     cout << "5. Robot dapat menyerang Kurama dengan damage konstan dengan radius maksimal 1 petak." << endl;
     cout << "6. Mecha-Kurama dapat menyerang Robot dengan damage random selama Robot berada pada radius 3 petak dari posisi Mecha-Kurama."<< endl;
     cout << "7. Robot dapat menyembuhkan diri sendiri dengan menambah nilai HP sebesar 10." << endl;
-    cout << "7. Command yang dapat digunakan untuk mengontrol robot adalah 'MOVE', 'ATTACK', 'HEAL', dan 'FINISH'." << endl;
-    cout << "8. User dapat mengakhiri program atau melanjutkan program setelah HP Mecha-Kurama kurang dari atau sama dengan 0" << endl;
+    cout << "8. Command yang dapat digunakan untuk mengontrol robot adalah 'MOVE', 'ATTACK', 'HEAL', dan 'FINISH'." << endl;
+    cout << "9. User dapat memilih untuk mengakhiri program atau melanjutkan program setelah HP Mecha-Kurama kurang dari atau sama dengan 0" << endl;
+    cout << "10. Untuk setiap ronde kelipatan 3, akan muncul ronde BOSS yang memiliki atribut HP lebih banyak dari Mecha-Kurama biasa." << endl;
+    cout << "11. Untuk setiap pertambahan ronde kelipatan 3, atribut HP awal BOSS akan bertambah sebesar 50." << endl;
 
     string start;
     cout << "Ketik 'YA' untuk memulai program" << endl;
@@ -81,6 +83,11 @@ int main () {
         } else {
             xdistance = xrobot - xmecha;
             cout << "Mecha berada pada " << xdistance << " petak di kiri robot." << endl;
+        }
+
+        // Penambahan Info bila pengguna sedang berada pada Ronde Boss
+        if ((amount+1) % 3 == 0){
+            cout << "Robot sedang berada pada ronde Boss Mecha-Kurama." << endl;
         }
 
         cout << "==============================================================" << endl;
