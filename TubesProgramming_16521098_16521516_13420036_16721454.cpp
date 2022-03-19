@@ -177,7 +177,7 @@ int main () {
                 }
             }
             else if (direction == "LEFT"){
-                if (papan[yrobot][xrobot-1] == 'M' or xrobot-1 < 0){
+                if (papan[yrobot][xrobot-1] == 'M' ){
                     cout << "Mecha-Kurama terkena serangan" << endl;
                     hpkurama -= 40;
                     cout << "HP Mecha-kurama sekarang adalah " << hpkurama << endl;
@@ -186,7 +186,7 @@ int main () {
                 }
             }
             else if (direction == "RIGHT"){
-                if (papan[yrobot][xrobot+1] == 'M' or xrobot+1 > 7){
+                if (papan[yrobot][xrobot+1] == 'M' ){
                     cout << "Mecha-Kurama terkena serangan" << endl;
                     hpkurama -= 40;
                     cout << "HP Mecha-kurama sekarang adalah " << hpkurama << endl;
@@ -201,8 +201,16 @@ int main () {
 
         // Bila action yang dipilih adalah "HEAL"
         else if (action == "HEAL") {
-            cout << "Robot melakukan reparasi terhadap dirinya. Atribut HP Robot bertambah 10."<< endl;
-            hprobot +=10;
+            if(hprobot == 100){ //Mencegah robot mendapatkan HP lebih dari 100
+                cout << "Atribut HP Robot sudah maksimum." << endl;
+            } else {
+                cout << "Robot melakukan reparasi terhadap dirinya. Atribut HP Robot bertambah 10."<< endl;
+                hprobot +=10;
+                if (hprobot > 100){ //Mencegah robot mendapatkan HP lebih dari 100
+                    hprobot = 100;
+                    cout << "Atribut HP Robot kembali 100." << endl;
+                }
+            }
         }
 
         // Bila action yang dipilih adalah "FINISH"
@@ -259,6 +267,10 @@ int main () {
                 }
                 papan[ymecha][xmecha] = 'M'; //melakukan spawn ulang mecha pada peta
                 hpkurama = 100; //melakukan reset ulang HP mecha kurama
+
+                if (((amount+1) % 3) == 0){ //boss fight mecha setiap kali mengalahkan 2 bunshin 
+                    hpkurama += (((amount+1) / 3) * 50); 
+                }
             }
 
         }
@@ -268,6 +280,5 @@ int main () {
     cout << "Program telah selesai dilaksanakan" << endl;
     cout << "Jumlah Mecha-Kurama yang telah dikalahkan adalah " << amount << " bunshin." << endl;
 
-    int finish;
-    cin >> finish;
+    return 0;
 }
