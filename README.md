@@ -34,7 +34,7 @@
 
 - Pilih tindakan `HEAL` untuk menambah HP robot sebesar 10 points
 
-![](https://media.discordapp.net/attachments/940989834779037716/955068094685011998/unknown.png)
+![](https://media.discordapp.net/attachments/940989834779037716/955070759418597456/unknown.png)
 
 <p>&nbsp;</p>
 
