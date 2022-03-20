@@ -1,5 +1,7 @@
 # Tugas Akhir Programming SEKURO2020
 
+# Link Repo : https://github.com/Gulilil/TugasAkhirProgrammingSEKURO2020
+
 ## 16521098 - Juan Christopher Santoso
 ## 16521516 - Ahmad Nadil
 ## 16721454 - Eureka Theressa Chang
